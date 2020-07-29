@@ -1,0 +1,25 @@
+{
+  "name": "slsTestApp",
+  "version": "1.0.0",
+  "description": "This repository is test serverless app.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nekoze-climber/slsTestApp.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nekoze-climber/slsTestApp/issues"
+  },
+  "homepage": "https://github.com/nekoze-climber/slsTestApp#readme",
+  "devDependencies": {
+    "eslint": "^7.5.0"
+  }
+}
