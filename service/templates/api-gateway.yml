@@ -15,3 +15,7 @@ Resources:
       RestApiId:
         Ref: ApiGatewayRestApi
       StageName: ${self:provider.stage}
+Outputs:
+  Id:
+    Value:
+      Ref: ApiGatewayRestApi

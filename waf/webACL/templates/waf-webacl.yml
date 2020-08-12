@@ -1,0 +1,29 @@
+Resources:
+  SlsTestAppWebACL:
+    Type: AWS::WAFv2::WebACL
+    Properties:
+      DefaultAction:
+        BLOCK: {}
+      Description: WebACL for slsTestApp Access.
+      Name: slsTestAppAPIWebACL
+      Rules:
+        - Action:
+            ALLOW: {}
+          Priority: 0
+          Name: SlsTestAppAPIAccessRule
+          VisibilityConfig:
+            CloudWatchMetricsEnabled: false
+            MetricName: SlsTestAppRuleMetric
+            SampledRequestsEnabled: false
+          Statement:
+            IPSetReferenceStatement:
+              Arn: ${cf:slsTestAppWAFIPSet-${self:provider.stage}.Arn}
+      Scope: REGIONAL
+      VisibilityConfig:
+        CloudWatchMetricsEnabled: false
+        MetricName: SlsTestAppWebACLMetric
+        SampledRequestsEnabled: false
+Outputs:
+  Arn:
+    Value:
+      "Fn::GetAtt": [SlsTestAppWebACL, Arn]
