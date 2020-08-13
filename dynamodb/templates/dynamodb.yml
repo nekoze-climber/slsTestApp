@@ -1,0 +1,16 @@
+Resources:
+  SlsTestAppPersonTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: SlsTestAppPersonTable-${self:provider.stage}
+      AttributeDefinitions:
+        - AttributeName: personId
+          AttributeType: S
+        - AttributeName: age
+          AttributeType: S
+      KeySchema:
+        - AttributeName: personId
+          KeyType: HASH
+        - AttributeName: age
+          KeyType: RANGE
+      BillingMode: PAY_PER_REQUEST
