@@ -46,8 +46,6 @@ provider:
 
   # you can define service wide environment variables here
   environment:
-    ACCOUNT: "{Please replace with your IAM Account ID here.}"
-    REGION: "ap-northeast-1"
     ALLOWEDIP: "{Please replace with your IP here.}"
 
 # you can add packaging information here
@@ -56,20 +54,9 @@ package:
   #    - include-me.js
   #    - include-me-dir/**
   exclude:
-    - docs/**
-    - node_modules/**
     - templates/**
-    - .eslintrc.json
-    - LICENSE
-    - README.md
-    - package-lock.json
 
 #functions:
-# getPerson:
-#   handler: src/lambda/getPerson/index.handler
-#   name: "slsTestApp-getPerson-${self:provider.stage}"
-#   #role: arn:aws:iam::${self:provider.environment.ACCOUNT}:role/getPersonRole
-#   description: "This function is test app."
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
@@ -112,7 +99,6 @@ package:
 
 # you can add CloudFormation resource templates here
 resources:
-  #- ${file(./templates/api-gateway.yml)}
   - ${file(./templates/waf-ipset.yml)}
 #  Resources:
 #    NewResource:

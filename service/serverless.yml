@@ -47,7 +47,6 @@ provider:
   # you can define service wide environment variables here
   environment:
     ACCOUNT: "{Please replace with your IAM Account ID here.}"
-    REGION: "ap-northeast-1"
 
 # you can add packaging information here
 package:
@@ -67,7 +66,6 @@ functions:
   getPerson:
     handler: src/lambda/getPerson/index.handler
     name: "slsTestApp-getPerson-${self:provider.stage}"
-    #role: arn:aws:iam::${self:provider.environment.ACCOUNT}:role/getPersonRole
     description: "This function is test app."
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
