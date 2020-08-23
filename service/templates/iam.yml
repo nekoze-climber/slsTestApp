@@ -1,0 +1,100 @@
+Resources:
+  GetPersonRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: "GetPersonRole-${self:provider.stage}"
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: "Allow"
+            Principal:
+              Service: "lambda.amazonaws.com"
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+      Path: "/"
+      Policies:
+        - PolicyName: "GetPersonPolicy-${self:provider.stage}"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: "Allow"
+                Action:
+                  - dynamodb:Query
+                Resource:
+                  - "arn:aws:dynamodb:${self:provider.region}:${self:provider.environment.ACCOUNT}:table/SlsTestAppPersonTable-${self:provider.stage}"
+                  - "arn:aws:dynamodb:${self:provider.region}:${self:provider.environment.ACCOUNT}:table/SlsTestAppPersonTable-${self:provider.stage}/index/*"
+  PostPersonRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: "PostPersonRole-${self:provider.stage}"
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: "Allow"
+            Principal:
+              Service: "lambda.amazonaws.com"
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+      Path: "/"
+      Policies:
+        - PolicyName: "PostPersonPolicy-${self:provider.stage}"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: "Allow"
+                Action:
+                  - dynamodb:PutItem
+                Resource:
+                  - "arn:aws:dynamodb:${self:provider.region}:${self:provider.environment.ACCOUNT}:table/SlsTestAppPersonTable-${self:provider.stage}"
+  PutPersonRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: "PutPersonRole-${self:provider.stage}"
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: "Allow"
+            Principal:
+              Service: "lambda.amazonaws.com"
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+      Path: "/"
+      Policies:
+        - PolicyName: "PutPersonPolicy-${self:provider.stage}"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: "Allow"
+                Action:
+                  - dynamodb:UpdateItem
+                Resource:
+                  - "arn:aws:dynamodb:${self:provider.region}:${self:provider.environment.ACCOUNT}:table/SlsTestAppPersonTable-${self:provider.stage}"
+  DeletePersonRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: "DeletePersonRole-${self:provider.stage}"
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: "Allow"
+            Principal:
+              Service: "lambda.amazonaws.com"
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+      Path: "/"
+      Policies:
+        - PolicyName: "DeletePersonPolicy-${self:provider.stage}"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: "Allow"
+                Action:
+                  - dynamodb:Query
+                  - dynamodb:DeleteItem
+                Resource:
+                  - "arn:aws:dynamodb:${self:provider.region}:${self:provider.environment.ACCOUNT}:table/SlsTestAppPersonTable-${self:provider.stage}"
+                  - "arn:aws:dynamodb:${self:provider.region}:${self:provider.environment.ACCOUNT}:table/SlsTestAppPersonTable-${self:provider.stage}/index/*"

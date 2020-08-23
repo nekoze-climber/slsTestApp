@@ -55,18 +55,45 @@ package:
   #    - include-me-dir/**
   exclude:
     - docs/**
-    - node_modules/**
-    - templates/**
+    - service/templates/**
     - .eslintrc.json
     - LICENSE
     - README.md
+    - package.json
     - package-lock.json
+    - service/__test__/**
+    - dynamodb/**
+    - waf/**
 
 functions:
   getPerson:
-    handler: src/lambda/getPerson/index.handler
+    handler: service/src/lambda/getPerson/index.handler
     name: "slsTestApp-getPerson-${self:provider.stage}"
+    role: "arn:aws:iam::${self:provider.environment.ACCOUNT}:role/GetPersonRole-${self:provider.stage}"
     description: "This function is test app."
+    environment:
+      PERSON_TABLE_NAME: SlsTestAppPersonTable-${self:provider.stage}
+  postPerson:
+    handler: service/src/lambda/postPerson/index.handler
+    name: "slsTestApp-postPerson-${self:provider.stage}"
+    role: "arn:aws:iam::${self:provider.environment.ACCOUNT}:role/PostPersonRole-${self:provider.stage}"
+    description: "This function is test app."
+    environment:
+      PERSON_TABLE_NAME: SlsTestAppPersonTable-${self:provider.stage}
+  putPerson:
+    handler: service/src/lambda/putPerson/index.handler
+    name: "slsTestApp-putPerson-${self:provider.stage}"
+    role: "arn:aws:iam::${self:provider.environment.ACCOUNT}:role/PutPersonRole-${self:provider.stage}"
+    description: "This function is test app."
+    environment:
+      PERSON_TABLE_NAME: SlsTestAppPersonTable-${self:provider.stage}
+  deletePerson:
+    handler: service/src/lambda/deletePerson/index.handler
+    name: "slsTestApp-deletePerson-${self:provider.stage}"
+    role: "arn:aws:iam::${self:provider.environment.ACCOUNT}:role/DeletePersonRole-${self:provider.stage}"
+    description: "This function is test app."
+    environment:
+      PERSON_TABLE_NAME: SlsTestAppPersonTable-${self:provider.stage}
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
@@ -109,7 +136,8 @@ functions:
 
 # you can add CloudFormation resource templates here
 resources:
-  - ${file(./templates/api-gateway.yml)}
+  - ${file(./service/templates/iam.yml)}
+  - ${file(./service/templates/api-gateway.yml)}
 #  Resources:
 #    NewResource:
 #      Type: AWS::S3::Bucket

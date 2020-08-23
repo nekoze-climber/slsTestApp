@@ -7,7 +7,7 @@
     "doc": "docs"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -20,6 +20,11 @@
   },
   "homepage": "https://github.com/nekoze-climber/slsTestApp#readme",
   "devDependencies": {
-    "eslint": "^7.5.0"
+    "eslint": "^7.5.0",
+    "jest": "^26.4.0"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.734.0",
+    "uuid": "^8.3.0"
   }
 }

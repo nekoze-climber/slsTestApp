@@ -2,11 +2,29 @@ Resources:
   ApiGatewayRestApi:
     Type: "AWS::ApiGateway::RestApi"
     Properties:
-      Body: ${file(./templates/swagger.yaml)}
+      Body: ${file(./service/templates/swagger.yaml)}
   GetPersonApiPermission:
     Type: "AWS::Lambda::Permission"
     Properties:
       FunctionName: "slsTestApp-getPerson-${self:provider.stage}"
+      Action: "lambda:InvokeFunction"
+      Principal: "apigateway.amazonaws.com"
+  PostPersonApiPermission:
+    Type: "AWS::Lambda::Permission"
+    Properties:
+      FunctionName: "slsTestApp-postPerson-${self:provider.stage}"
+      Action: "lambda:InvokeFunction"
+      Principal: "apigateway.amazonaws.com"
+  PutPersonApiPermission:
+    Type: "AWS::Lambda::Permission"
+    Properties:
+      FunctionName: "slsTestApp-putPerson-${self:provider.stage}"
+      Action: "lambda:InvokeFunction"
+      Principal: "apigateway.amazonaws.com"
+  DeletePersonApiPermission:
+    Type: "AWS::Lambda::Permission"
+    Properties:
+      FunctionName: "slsTestApp-deletePerson-${self:provider.stage}"
       Action: "lambda:InvokeFunction"
       Principal: "apigateway.amazonaws.com"
   ApiGatewayDeployment:

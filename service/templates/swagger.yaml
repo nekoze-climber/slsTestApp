@@ -19,6 +19,36 @@ consumes:
 
 paths:
   /slsTestApp/v1/api/person:
+    post:
+      summary: Create a new person.
+      description: Create a new person.
+      tags:
+        - person
+      parameters:
+        - in: body
+          schema:
+            $ref: "#/definitions/consumePersonModel"
+          name: personModel
+          description: person model which you want to create.
+          required: true
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: "#/definitions/producePersonModel"
+        400:
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/error"
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        responses:
+          default:
+            statusCode: "200"
+        uri: "arn:aws:apigateway:ap-northeast-1:lambda:path/2015-03-31/functions/arn:aws:lambda:ap-northeast-1:{Please replace with your IAM Account ID here.}:function:slsTestApp-postPerson-dev/invocations"
+        httpMethod: "POST"
+        contentHandling: "CONVERT_TO_TEXT"
+  /slsTestApp/v1/api/person/{personId}:
     get:
       summary: Returns a person which matches id in path.
       description: Returns a person which matches id in path.
@@ -53,63 +83,64 @@ paths:
         uri: "arn:aws:apigateway:ap-northeast-1:lambda:path/2015-03-31/functions/arn:aws:lambda:ap-northeast-1:{Please replace with your IAM Account ID here.}:function:slsTestApp-getPerson-dev/invocations"
         httpMethod: "POST"
         contentHandling: "CONVERT_TO_TEXT"
-    # post:
-    #   summary: Create a new person.
-    #   description: Create a new person.
-    #   tags:
-    #     - person
-    #   parameters:
-    #     - in: body
-    #       schema:
-    #         $ref: "#/definitions/consumePersonModel"
-    #       name: personModel
-    #       description: person model which you want to create.
-    #       required: true
-    #   responses:
-    #     200:
-    #       description: OK
-    #       schema:
-    #         $ref: "#/definitions/producePersonModel"
-    #     404:
-    #       description: Not Found
-    #       schema:
-    #         $ref: "#/definitions/error"
-    # put:
-    #   summary: Update person which matche id in path.
-    #   description: Update person which matche id in path.
-    #   tags:
-    #     - person
-    #   parameters:
-    #     - in: path
-    #       name: personId
-    #       description: person id which you want to update.
-    #       required: true
-    #       type: "string"
-    #   responses:
-    #     200:
-    #       description: OK
-    #       schema:
-    #         $ref: "#/definitions/producePersonModel"
-    #     404:
-    #       description: Not Found
-    #       schema:
-    #         $ref: "#/definitions/error"
-    # delete:
-    #   summary: Delete person which matche id in path.
-    #   description: Delete person which matche id in path.
-    #   tags:
-    #     - person
-    #   parameters:
-    #     - in: path
-    #       name: personId
-    #       description: person id which you want to delete.
-    #       required: true
-    #       type: "string"
-    #   responses:
-    #     200:
-    #       description: OK
-    #       schema:
-    #         $ref: "#/definitions/producePersonModel"
+    put:
+      summary: Update person which matche id in path.
+      description: Update person which matche id in path.
+      tags:
+        - person
+      parameters:
+        - in: path
+          name: personId
+          description: person id which you want to update.
+          required: true
+          type: "string"
+        - in: body
+          schema:
+            $ref: "#/definitions/consumePersonModel"
+          name: personModel
+          description: person model which you want to create.
+          required: true
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: "#/definitions/producePersonModel"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/error"
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        responses:
+          default:
+            statusCode: "200"
+        uri: "arn:aws:apigateway:ap-northeast-1:lambda:path/2015-03-31/functions/arn:aws:lambda:ap-northeast-1:{Please replace with your IAM Account ID here.}:function:slsTestApp-putPerson-dev/invocations"
+        httpMethod: "POST"
+        contentHandling: "CONVERT_TO_TEXT"
+    delete:
+      summary: Delete person which matche id in path.
+      description: Delete person which matche id in path.
+      tags:
+        - person
+      parameters:
+        - in: path
+          name: personId
+          description: person id which you want to delete.
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: "#/definitions/producePersonModel"
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        responses:
+          default:
+            statusCode: "200"
+        uri: "arn:aws:apigateway:ap-northeast-1:lambda:path/2015-03-31/functions/arn:aws:lambda:ap-northeast-1:{Please replace with your IAM Account ID here.}:function:slsTestApp-deletePerson-dev/invocations"
+        httpMethod: "POST"
+        contentHandling: "CONVERT_TO_TEXT"
 
 definitions:
   consumePersonModel:
@@ -118,6 +149,8 @@ definitions:
       name:
         type: "string"
       weight:
+        type: "string"
+      height:
         type: "string"
       age:
         type: "string"
@@ -129,6 +162,8 @@ definitions:
       name:
         type: "string"
       weight:
+        type: "string"
+      height:
         type: "string"
       age:
         type: "string"
