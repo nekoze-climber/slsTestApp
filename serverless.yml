@@ -137,6 +137,7 @@ functions:
 # you can add CloudFormation resource templates here
 resources:
   - ${file(./service/templates/iam.yml)}
+  # Please comment out below when you deploy first time.
   - ${file(./service/templates/api-gateway.yml)}
 #  Resources:
 #    NewResource:
