@@ -85,13 +85,13 @@ slslTestApp can CREATE/GET/UPDATE/DELETE Person model data.
 ## Undeploy
 
 1. Undeploy WAF association. Execute command below at `/waf/association`
-   - `sls demove`
+   - `sls remove`
 2. Undeploy WAF WebACL. Execute command below at `/waf/webACL`
-   - `sls demove`
+   - `sls remove`
 3. Undeploy WAF IPset. Execute command below at `/waf/ipset`
-   - `sls demove`
+   - `sls remove`
 4. Undeploy Lambda Functions, IAM Role and API Gateway. Execute command below at root
-   - `sls demove`
+   - `sls remove`
 
 ## Unit Testing
 
