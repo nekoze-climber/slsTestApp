@@ -1,4 +1,13 @@
 Resources:
+  SlsTestAppIPSet:
+    Type: AWS::WAFv2::IPSet
+    Properties:
+      Addresses:
+        - ${self:provider.environment.ALLOWEDIP}
+      Description: IP set for slsTestApp Access.
+      IPAddressVersion: IPV4
+      Name: SlsTestAppAPIAllowedIPSet
+      Scope: REGIONAL
   SlsTestAppWebACL:
     Type: AWS::WAFv2::WebACL
     Properties:
@@ -17,13 +26,18 @@ Resources:
             SampledRequestsEnabled: false
           Statement:
             IPSetReferenceStatement:
-              Arn: ${cf:slsTestAppWAFIPSet-${self:provider.stage}.Arn}
+              Arn:
+                "Fn::GetAtt": [SlsTestAppIPSet, Arn]
       Scope: REGIONAL
       VisibilityConfig:
         CloudWatchMetricsEnabled: false
         MetricName: SlsTestAppWebACLMetric
         SampledRequestsEnabled: false
-Outputs:
-  Arn:
-    Value:
-      "Fn::GetAtt": [SlsTestAppWebACL, Arn]
+    DependsOn: SlsTestAppIPSet
+  SlsTestAppWebACLAssociation:
+    Type: "AWS::WAFv2::WebACLAssociation"
+    Properties:
+      ResourceArn: arn:aws:apigateway:${self:provider.region}::/restapis/${cf:slsTestApp-${self:provider.stage}.Id}/stages/${self:provider.stage}
+      WebACLArn:
+        "Fn::GetAtt": [SlsTestAppWebACL, Arn]
+    DependsOn: SlsTestAppWebACL

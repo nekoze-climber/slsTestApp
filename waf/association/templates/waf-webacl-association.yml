@@ -1,6 +1,0 @@
-Resources:
-  SlsTestAppWebACLAssociation:
-    Type: "AWS::WAFv2::WebACLAssociation"
-    Properties:
-      ResourceArn: arn:aws:apigateway:${self:provider.region}::/restapis/${cf:slsTestApp-${self:provider.stage}.Id}/stages/${self:provider.stage}
-      WebACLArn: ${cf:slsTestAppWAFWebACL-${self:provider.stage}.Arn}
